@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raketové Weby | Digitální dominance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 80px; 
+            overflow-x: hidden; 
+        }
+        
+
+        body {
+            background-color: #080c14;
+            background-image: 
+                radial-gradient(circle at top, rgba(109, 40, 217, 0.4) 0%, rgba(30, 58, 138, 0.4) 50%, transparent 100%),
+                radial-gradient(white, rgba(255,255,255,.3) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.25) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
+                radial-gradient(rgba(255,255,255,.5), rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 1px, transparent 2px),
+                radial-gradient(rgba(255,255,255,.3), rgba(255,255,255,.05) 1px, transparent 1px);
+            background-size: 100% 100%, 550px 550px, 350px 350px, 650px 650px, 450px 450px, 250px 250px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 0 0, 100px 150px, 200px 50px, 50px 100px, 150px 200px, 120px 180px, 220px 80px, 170px 230px;
+            color: #f8fafc;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before { display: none; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        nav { z-index: 100; }
+        section, header { position: relative; z-index: 1; }
+        
+        .text-glow {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+
+        .logo-group:hover .logo-text-white {
+            color: #3b82f6; 
+        }
+        .logo-text-white {
+            transition: color 0.3s ease;
+        }
+
+
+		.bg-rocket {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(0.5px);
+
+            transform: rotate(var(--rotation));
+            will-change: left, top;
+        }
+
+        @keyframes fly-rocket {
+            from {
+                left: var(--start-x);
+                top: var(--start-y);
+            }
+            to {
+                left: var(--end-x);
+                top: var(--end-y);
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 3rem !important; line-height: 1.1; }
+            section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+            .glass-card { padding: 1.5rem !important; border-radius: 1.5rem !important; }
+            nav .max-w-7xl { padding-left: 1rem; padding-right: 1rem; }
+            nav a span { display: none; }
+        }
+
+        #sluzby {
+            padding-top: 6rem !important;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div id="rocket-container" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index: 0;"></div>
+
+    <nav class="fixed w-full bg-slate-950/60 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center">
+            <div class="flex-1">
+                <a href="#" class="logo-group text-xl md:text-2xl font-black tracking-tighter text-white flex items-center text-glow">
+                    <i class="fas fa-rocket text-blue-500 mr-2"></i>
+                    <span class="logo-text-white">RAKETOVÉ</span><span class="text-blue-500">WEBY</span>
+                </a>
+            </div>
+            <div class="hidden md:flex flex-1 justify-center space-x-10">
+                <a href="#sluzby" class="text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest">Služby</a>
+                <a href="#portfolio" class="text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest">naše mise</a>
+            </div>
+            <div class="flex-1 flex justify-end">
+                <a href="#kontakt" class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-xs md:text-sm uppercase">
+                    Kontakt
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-48 pb-32 px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <span class="px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 inline-block border border-blue-500/20 tracking-widest uppercase shadow-glow">Mise: Digitální Dominance</span>
+            <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tight">
+                Vystřelte svůj projekt <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">mimo oběžnou dráhu</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                Neztrácejte čas s pomalými weby. Raketové Weby dodávají špičkový kód, grafiku a marketing, který vás vystřelí před konkurenci.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="#sluzby" class="px-10 py-4 bg-white text-slate-950 rounded-xl font-bold text-lg hover:bg-blue-50 transition-all shadow-xl">Prohlédnout služby</a>
+                <a href="#kontakt" class="px-10 py-4 border border-white/20 rounded-xl font-bold text-lg hover:bg-white/5 transition">Nezávazná poptávka</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="sluzby" class="pt-64 pb-32 px-6 reveal">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase italic tracking-tighter text-glow">Co pro vás uděláme?</h2>
+                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full shadow-glow"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-blue-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-blue-600/20 text-blue-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Weby na míru</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Stavíme rychlé a bezpečné weby, které nepadají ani při extrémní zátěži.</p>
+                </div>
+
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-purple-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-purple-600/20 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Správa sociálních sítí</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Sociální sítě s výkonem rakety. Obsah, který nenechá nikoho na zemi!</p>
+                </div>
+
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-green-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-green-600/20 text-green-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-green-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Marketingový Tah</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Zacílíme vaši reklamu přesně na střed. PPC, SEO a konverze.</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-orange-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-orange-600/20 text-orange-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-orange-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">E-shopy</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Robustní prodejní systém navržené pro maximální zisk a hladký průběh objednávek.</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-red-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-red-600/20 text-red-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-red-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Brutální grafika</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Vizuál, který mluví sám za sebe!</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-pink-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-pink-600/20 text-pink-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-pink-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Obsah & Copy</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Texty, které prodávají. Píšeme příběhy, které vaši zákazníci chtějí číst.</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-cyan-600/20 text-cyan-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-cyan-600 group-hover:text-white transition-all shadow-glow">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Data & Analýza</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Měříme vše. Optimalizujeme váš web na základě reálných dat, ne dojmů.</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-green-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-green-600/20 text-green-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-green-600 group-hover:text-white transition-all shadow-glow">                        
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Zabezpečení</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Bezpečný let zaručen. Každý náš web má pancéřování v podobě HTTPS šifrování.</p>
+                </div>
+                <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-yellow-500/40 transition-all duration-500">
+                    <div class="w-16 h-16 bg-yellow-600/20 text-yellow-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-yellow-600 group-hover:text-white transition-all shadow-glow">                     
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Odlet</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Váš web vyletí do vesmíru raketovou rychlostí.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-32 px-6 reveal">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-20 uppercase italic tracking-tighter text-glow">Naše Mise</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <a href="https://trim-d.cz" target="_blank" class="group relative overflow-hidden rounded-3xl aspect-video glass-card flex items-center justify-center border-white/5 hover:border-blue-500/50 transition">
+                    <i class="fas fa-rocket text-6xl text-white/10 group-hover:text-blue-500/20 group-hover:scale-150 transition-all duration-700"></i>
+                    <div class="absolute bottom-8 left-8 text-left">
+                        <p class="text-blue-400 font-bold text-sm uppercase">Web pro BarberShop</p>
+                        <h4 class="text-2xl font-black uppercase text-glow">trim-d.cz</h4>
+                    </div>
+                </a>
+                <div class="group relative overflow-hidden rounded-3xl aspect-video glass-card flex items-center justify-center border-white/5 hover:border-purple-500/50 transition">
+                    <i class="fas fa-palette text-6xl text-white/10 group-hover:text-purple-500/20 group-hover:scale-150 transition-all duration-700"></i>
+                    <div class="absolute bottom-8 left-8 text-left">
+                        <p class="text-purple-400 font-bold text-sm uppercase">Volné místo</p>
+                        <h4 class="text-2xl font-black uppercase text-glow">Místo pro váš web</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-32 px-6">
+        <div class="max-w-3xl mx-auto glass-card p-8 md:p-16 rounded-[3rem] border-blue-500/20 relative overflow-hidden shadow-glow">
+            <div class="absolute top-0 right-0 p-10 opacity-10">
+                <i class="fas fa-paper-plane text-8xl -rotate-12 text-blue-500"></i>
+            </div>
+            <h2 class="text-4xl font-black mb-4 uppercase text-glow">Připravit ke startu?</h2>
+            <p class="text-slate-400 mb-10 text-lg">Zanechte nám vzkaz a my s vámi naplánujeme cestu ke hvězdám.</p>
+            
+            <form id="my-form" action="https://formspree.io/f/maqdgobp" method="POST" class="grid gap-5 relative">
+                <div class="grid md:grid-cols-2 gap-5">
+                    <input type="text" name="name" placeholder="Jméno" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none transition focus:bg-white/10 text-white">
+                    <input type="email" name="email" required placeholder="Váš email" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none transition focus:bg-white/10 text-white">
+                </div>
+                <textarea name="message" required placeholder="Popište nám svůj projekt..." class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none h-40 transition focus:bg-white/10 text-white"></textarea>
+                
+                <button type="submit" id="my-form-button" class="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition shadow-xl shadow-blue-600/40 text-xl uppercase tracking-tighter italic hover:scale-[1.02] shadow-glow">
+                    Odeslat poptávku!
+                </button>
+                <p id="my-form-status" class="text-center font-bold mt-4"></p>
+                <p class="text-blue-400/80 text-xs font-bold mb-6 uppercase tracking-widest border-l-2 border-blue-500 pl-4">
+                    Spolupráce formou externí výpomoci (DPP) – ideální pro rychlé nasazení bez zbytečné administrativy.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-slate-600 border-t border-white/5">
+        <p class="text-sm uppercase tracking-widest font-bold px-4">&copy; 2026 Raketové Weby. Žádné šablony, jen čistý výkon.</p>
+        <p class="text-[10px] text-slate-500/50 uppercase tracking-[0.2em]">
+                Tento web slouží jako technologické portfolio a ukázka autorské tvorby. <br>
+                Provozováno v rámci studijního projektu.
+    </footer>
+
+    <script>
+		function createRockets() {
+            const container = document.getElementById('rocket-container');
+            const rocketIcons = ['fa-rocket'];
+            
+            setInterval(() => {
+                const rocket = document.createElement('i');
+                const type = rocketIcons[Math.floor(Math.random() * rocketIcons.length)];
+                
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+
+                const side = Math.floor(Math.random() * 4);
+                let startX, startY, endX, endY;
+
+                const padding = 100;
+
+                if (side === 0) {
+                    startX = -padding; startY = Math.random() * h;
+                    endX = w + padding; endY = Math.random() * h;
+                } else if (side === 1) { // Zprava doleva
+                    startX = w + padding; startY = Math.random() * h;
+                    endX = -padding; endY = Math.random() * h;
+                } else if (side === 2) { // Zdola nahoru
+                    startX = Math.random() * w; startY = h + padding;
+                    endX = Math.random() * w; endY = -padding;
+                } else { // Zhora dolů
+                    startX = Math.random() * w; startY = -padding;
+                    endX = Math.random() * w; endY = h + padding;
+                }
+
+                const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI) +50;
+
+                const size = Math.random() * (22 - 12) + 12;
+                const duration = Math.random() * (6 - 2);
+
+                rocket.className = `fas ${type} bg-rocket`;
+                rocket.style.fontSize = `${size}px`;
+                
+                // Nastavení CSS proměnných pro animaci
+                rocket.style.setProperty('--start-x', `${startX}px`);
+                rocket.style.setProperty('--start-y', `${startY}px`);
+                rocket.style.setProperty('--end-x', `${endX}px`);
+                rocket.style.setProperty('--end-y', `${endY}px`);
+                rocket.style.setProperty('--rotation', `${angle}deg`);
+                
+                rocket.style.animation = `fly-rocket ${duration}s linear forwards`;
+                rocket.style.opacity = Math.random() * 0.4;
+
+                container.appendChild(rocket);
+
+                setTimeout(() => {
+                    rocket.remove();
+                }, duration * 1000);
+            }, 2000);
+        }
+        createRockets();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        var form = document.getElementById("my-form");
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("my-form-status");
+          var data = new FormData(event.target);
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(response => {
+            if (response.ok) {
+              status.innerHTML = "Děkujeme! Vaše mise byla úspěšně odeslána.";
+              status.className = "text-center font-bold mt-4 text-green-500";
+              form.reset()
+            } else {
+              status.innerHTML = "Ups! Něco se nepovedlo při startu.";
+              status.className = "text-center font-bold mt-4 text-red-500";
+            }
+          }).catch(error => {
+            status.innerHTML = "Ups! Máme problém se spojením.";
+            status.className = "text-center font-bold mt-4 text-red-500";
+          });
+        }
+        form.addEventListener("submit", handleSubmit)
+    </script>
+</body>
+</html>
