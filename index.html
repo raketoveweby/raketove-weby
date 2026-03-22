@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raketové Weby | Digitální dominance</title>
+    <title>Raketové Weby | Profesionální tvorba webu, SEO a marketing</title>
+    <meta name="description" content="Vytvoříme pro vás moderní, rychlé a bezpečné webové stránky, které prodávají. Specializujeme se na SEO, PPC kampaně, e-shopy a grafický design.">
+    <meta name="keywords" content="tvorba webu, výroba stránek, SEO optimalizace, digitální marketing, e-shopy na míru, grafika, Raketové Weby">
+    <meta name="author" content="Raketové Weby">
+    <link rel="canonical" href="https://raketoveweby.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://raketoveweby.cz/">
+    <meta property="og:title" content="Raketové Weby | Digitální dominance pro váš byznys">
+    <meta property="og:description" content="Neztrácejte čas s pomalými weby. Dodáváme špičkový kód a marketing, který vás vystřelí před konkurenci.">
+    <meta property="og:image" content="https://raketoveweby.cz/og-image.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,7 +21,6 @@
             scroll-padding-top: 80px; 
             overflow-x: hidden; 
         }
-        
 
         body {
             background-color: #080c14;
@@ -60,7 +68,6 @@
             text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
         }
 
-
         .logo-group:hover .logo-text-white {
             color: #3b82f6; 
         }
@@ -68,14 +75,12 @@
             transition: color 0.3s ease;
         }
 
-
-		.bg-rocket {
+        .bg-rocket {
             position: fixed;
             color: rgba(255, 255, 255, 0.4);
             pointer-events: none;
             z-index: 0;
             filter: blur(0.5px);
-
             transform: rotate(var(--rotation));
             will-change: left, top;
         }
@@ -91,17 +96,25 @@
             }
         }
 
-
         @media (max-width: 768px) {
             header h1 { font-size: 3rem !important; line-height: 1.1; }
             section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
             .glass-card { padding: 1.5rem !important; border-radius: 1.5rem !important; }
-            nav .max-w-7xl { padding-left: 1rem; padding-right: 1rem; }
-            nav a span { display: none; }
+            nav .max-w-7xl { padding-left: 1.5rem; padding-right: 1.5rem; }
         }
 
         #sluzby {
             padding-top: 6rem !important;
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        #mobile-menu.hidden-custom {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -110,22 +123,36 @@
     <div id="rocket-container" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index: 0;"></div>
 
     <nav class="fixed w-full bg-slate-950/60 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex-1">
                 <a href="#" class="logo-group text-xl md:text-2xl font-black tracking-tighter text-white flex items-center text-glow">
                     <i class="fas fa-rocket text-blue-500 mr-2"></i>
                     <span class="logo-text-white">RAKETOVÉ</span><span class="text-blue-500">WEBY</span>
                 </a>
             </div>
+            
             <div class="hidden md:flex flex-1 justify-center space-x-10">
                 <a href="#sluzby" class="text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest">Služby</a>
                 <a href="#portfolio" class="text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest">naše mise</a>
             </div>
-            <div class="flex-1 flex justify-end">
+
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" class="text-white text-2xl focus:outline-none">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+
+            <div class="hidden md:flex flex-1 justify-end">
                 <a href="#kontakt" class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-xs md:text-sm uppercase">
                     Kontakt
                 </a>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden-custom fixed top-[73px] left-0 w-full bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 md:hidden flex flex-col items-center py-8 space-y-6">
+            <a href="#sluzby" class="mobile-link text-lg font-bold text-white/90 uppercase tracking-widest">Služby</a>
+            <a href="#portfolio" class="mobile-link text-lg font-bold text-white/90 uppercase tracking-widest">naše mise</a>
+            <a href="#kontakt" class="mobile-link bg-blue-600 text-white px-8 py-3 rounded-full font-bold uppercase text-sm">Kontakt</a>
         </div>
     </nav>
 
@@ -213,7 +240,7 @@
                     <p class="text-slate-400 text-sm leading-relaxed">Bezpečný let zaručen. Každý náš web má pancéřování v podobě HTTPS šifrování.</p>
                 </div>
                 <div class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-yellow-500/40 transition-all duration-500">
-                    <div class="w-16 h-16 bg-yellow-600/20 text-yellow-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-yellow-600 group-hover:text-white transition-all shadow-glow">                     
+                    <div class="w-16 h-16 bg-yellow-600/20 text-yellow-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-yellow-600 group-hover:text-white transition-all shadow-glow">                      
                         <i class="fas fa-clock"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Odlet</h3>
@@ -276,10 +303,34 @@
         <p class="text-[10px] text-slate-500/50 uppercase tracking-[0.2em]">
                 Tento web slouží jako technologické portfolio a ukázka autorské tvorby. <br>
                 Provozováno v rámci studijního projektu.
+        </p>
     </footer>
 
     <script>
-		function createRockets() {
+        // --- MOBILE MENU LOGIC ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden-custom');
+            const isOpen = !mobileMenu.classList.contains('hidden-custom');
+            menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        
+        // Close menu after clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden-custom');
+                menuIcon.className = 'fas fa-bars';
+            });
+        });
+
+        // --- ROCKET ANIMATIONS ---
+        function createRockets() {
             const container = document.getElementById('rocket-container');
             const rocketIcons = ['fa-rocket'];
             
@@ -309,15 +360,14 @@
                     endX = Math.random() * w; endY = h + padding;
                 }
 
-                const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI) +50;
+                const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI) + 45;
 
                 const size = Math.random() * (22 - 12) + 12;
-                const duration = Math.random() * (6 - 2);
+                const duration = Math.random() * (6 - 2) + 2;
 
                 rocket.className = `fas ${type} bg-rocket`;
                 rocket.style.fontSize = `${size}px`;
                 
-                // Nastavení CSS proměnných pro animaci
                 rocket.style.setProperty('--start-x', `${startX}px`);
                 rocket.style.setProperty('--start-y', `${startY}px`);
                 rocket.style.setProperty('--end-x', `${endX}px`);
@@ -336,6 +386,7 @@
         }
         createRockets();
 
+        // --- INTERSECTION OBSERVER ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -346,6 +397,7 @@
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+        // --- FORM HANDLING ---
         var form = document.getElementById("my-form");
         async function handleSubmit(event) {
           event.preventDefault();
