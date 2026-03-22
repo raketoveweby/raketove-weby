@@ -42,8 +42,6 @@
             overflow-x: hidden;
         }
 
-        body::before { display: none; }
-
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -86,35 +84,25 @@
         }
 
         @keyframes fly-rocket {
-            from {
-                left: var(--start-x);
-                top: var(--start-y);
-            }
-            to {
-                left: var(--end-x);
-                top: var(--end-y);
-            }
+            from { left: var(--start-x); top: var(--start-y); }
+            to { left: var(--end-x); top: var(--end-y); }
         }
 
         @media (max-width: 768px) {
             header h1 { font-size: 3rem !important; line-height: 1.1; }
             section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
             .glass-card { padding: 1.5rem !important; border-radius: 1.5rem !important; }
-            nav .max-w-7xl { padding-left: 1.5rem; padding-right: 1.5rem; }
         }
 
-        #sluzby {
-            padding-top: 6rem !important;
-        }
-
-        /* Mobile Menu Styles */
+        /* Fullscreen Mobile Menu Animation */
         #mobile-menu {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-        #mobile-menu.hidden-custom {
-            transform: translateY(-100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            visibility: hidden;
             opacity: 0;
-            pointer-events: none;
+        }
+        #mobile-menu.active {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
@@ -122,7 +110,7 @@
 
     <div id="rocket-container" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index: 0;"></div>
 
-    <nav class="fixed w-full bg-slate-950/60 backdrop-blur-xl border-b border-white/10">
+    <nav class="fixed w-full bg-slate-950/60 backdrop-blur-xl border-b border-white/10" style="z-index: 1000;">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex-1">
                 <a href="#" class="logo-group text-xl md:text-2xl font-black tracking-tighter text-white flex items-center text-glow">
@@ -137,7 +125,7 @@
             </div>
 
             <div class="md:hidden flex items-center">
-                <button id="menu-btn" class="text-white text-2xl focus:outline-none">
+                <button id="menu-btn" class="text-white text-2xl focus:outline-none relative z-[1100]">
                     <i class="fas fa-bars" id="menu-icon"></i>
                 </button>
             </div>
@@ -148,13 +136,13 @@
                 </a>
             </div>
         </div>
-
-        <div id="mobile-menu" class="hidden-custom fixed top-[73px] left-0 w-full bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 md:hidden flex flex-col items-center py-8 space-y-6">
-            <a href="#sluzby" class="mobile-link text-lg font-bold text-white/90 uppercase tracking-widest">Služby</a>
-            <a href="#portfolio" class="mobile-link text-lg font-bold text-white/90 uppercase tracking-widest">naše mise</a>
-            <a href="#kontakt" class="mobile-link bg-blue-600 text-white px-8 py-3 rounded-full font-bold uppercase text-sm">Kontakt</a>
-        </div>
     </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950/98 backdrop-blur-2xl flex flex-col items-center justify-center space-y-12 z-[1050] md:hidden">
+        <a href="#sluzby" class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Služby</a>
+        <a href="#portfolio" class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">naše mise</a>
+        <a href="#kontakt" class="mobile-link bg-blue-600 text-white px-12 py-5 rounded-full font-black uppercase text-xl shadow-glow">Kontakt</a>
+    </div>
 
     <header class="pt-48 pb-32 px-6 text-center">
         <div class="max-w-5xl mx-auto">
@@ -274,154 +262,105 @@
 
     <section id="kontakt" class="py-32 px-6">
         <div class="max-w-3xl mx-auto glass-card p-8 md:p-16 rounded-[3rem] border-blue-500/20 relative overflow-hidden shadow-glow">
-            <div class="absolute top-0 right-0 p-10 opacity-10">
-                <i class="fas fa-paper-plane text-8xl -rotate-12 text-blue-500"></i>
-            </div>
             <h2 class="text-4xl font-black mb-4 uppercase text-glow">Připravit ke startu?</h2>
             <p class="text-slate-400 mb-10 text-lg">Zanechte nám vzkaz a my s vámi naplánujeme cestu ke hvězdám.</p>
-            
-            <form id="my-form" action="https://formspree.io/f/maqdgobp" method="POST" class="grid gap-5 relative">
+            <form id="my-form" action="https://formspree.io/f/maqdgobp" method="POST" class="grid gap-5">
                 <div class="grid md:grid-cols-2 gap-5">
-                    <input type="text" name="name" placeholder="Jméno" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none transition focus:bg-white/10 text-white">
-                    <input type="email" name="email" required placeholder="Váš email" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none transition focus:bg-white/10 text-white">
+                    <input type="text" name="name" placeholder="Jméno" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none text-white">
+                    <input type="email" name="email" required placeholder="Váš email" class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none text-white">
                 </div>
-                <textarea name="message" required placeholder="Popište nám svůj projekt..." class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none h-40 transition focus:bg-white/10 text-white"></textarea>
-                
-                <button type="submit" id="my-form-button" class="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition shadow-xl shadow-blue-600/40 text-xl uppercase tracking-tighter italic hover:scale-[1.02] shadow-glow">
-                    Odeslat poptávku!
-                </button>
+                <textarea name="message" required placeholder="Popište nám svůj projekt..." class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none h-40 text-white"></textarea>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition shadow-xl text-xl uppercase italic">Odeslat poptávku!</button>
                 <p id="my-form-status" class="text-center font-bold mt-4"></p>
-                <p class="text-blue-400/80 text-xs font-bold mb-6 uppercase tracking-widest border-l-2 border-blue-500 pl-4">
-                    Spolupráce formou externí výpomoci (DPP) – ideální pro rychlé nasazení bez zbytečné administrativy.
-                </p>
             </form>
         </div>
     </section>
 
     <footer class="py-12 text-center text-slate-600 border-t border-white/5">
-        <p class="text-sm uppercase tracking-widest font-bold px-4">&copy; 2026 Raketové Weby. Žádné šablony, jen čistý výkon.</p>
-        <p class="text-[10px] text-slate-500/50 uppercase tracking-[0.2em]">
-                Tento web slouží jako technologické portfolio a ukázka autorské tvorby. <br>
-                Provozováno v rámci studijního projektu.
-        </p>
+        <p class="text-sm uppercase tracking-widest font-bold">&copy; 2026 Raketové Weby. Žádné šablony, jen čistý výkon.</p>
     </footer>
 
     <script>
-        // --- MOBILE MENU LOGIC ---
+        // MOBILE MENU LOGIC
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
 
-        function toggleMenu() {
-            mobileMenu.classList.toggle('hidden-custom');
-            const isOpen = !mobileMenu.classList.contains('hidden-custom');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const isOpen = mobileMenu.classList.contains('active');
             menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-        }
+            body.style.overflow = isOpen ? 'hidden' : 'auto'; // Disable scroll when menu is open
+        });
 
-        menuBtn.addEventListener('click', toggleMenu);
-        
-        // Close menu after clicking a link
-        mobileLinks.forEach(link => {
+        document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden-custom');
+                mobileMenu.classList.remove('active');
                 menuIcon.className = 'fas fa-bars';
+                body.style.overflow = 'auto';
             });
         });
 
-        // --- ROCKET ANIMATIONS ---
+        // ROCKETS GENERATOR
         function createRockets() {
             const container = document.getElementById('rocket-container');
-            const rocketIcons = ['fa-rocket'];
-            
             setInterval(() => {
                 const rocket = document.createElement('i');
-                const type = rocketIcons[Math.floor(Math.random() * rocketIcons.length)];
-                
                 const w = window.innerWidth;
                 const h = window.innerHeight;
-
                 const side = Math.floor(Math.random() * 4);
                 let startX, startY, endX, endY;
-
                 const padding = 100;
 
-                if (side === 0) {
-                    startX = -padding; startY = Math.random() * h;
-                    endX = w + padding; endY = Math.random() * h;
-                } else if (side === 1) { // Zprava doleva
-                    startX = w + padding; startY = Math.random() * h;
-                    endX = -padding; endY = Math.random() * h;
-                } else if (side === 2) { // Zdola nahoru
-                    startX = Math.random() * w; startY = h + padding;
-                    endX = Math.random() * w; endY = -padding;
-                } else { // Zhora dolů
-                    startX = Math.random() * w; startY = -padding;
-                    endX = Math.random() * w; endY = h + padding;
-                }
+                if (side === 0) { startX = -padding; startY = Math.random() * h; endX = w + padding; endY = Math.random() * h; }
+                else if (side === 1) { startX = w + padding; startY = Math.random() * h; endX = -padding; endY = Math.random() * h; }
+                else if (side === 2) { startX = Math.random() * w; startY = h + padding; endX = Math.random() * w; endY = -padding; }
+                else { startX = Math.random() * w; startY = -padding; endX = Math.random() * w; endY = h + padding; }
 
                 const angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI) + 45;
+                const duration = Math.random() * 4 + 2;
 
-                const size = Math.random() * (22 - 12) + 12;
-                const duration = Math.random() * (6 - 2) + 2;
-
-                rocket.className = `fas ${type} bg-rocket`;
-                rocket.style.fontSize = `${size}px`;
-                
+                rocket.className = 'fas fa-rocket bg-rocket';
+                rocket.style.fontSize = `${Math.random() * 10 + 12}px`;
                 rocket.style.setProperty('--start-x', `${startX}px`);
                 rocket.style.setProperty('--start-y', `${startY}px`);
                 rocket.style.setProperty('--end-x', `${endX}px`);
                 rocket.style.setProperty('--end-y', `${endY}px`);
                 rocket.style.setProperty('--rotation', `${angle}deg`);
-                
                 rocket.style.animation = `fly-rocket ${duration}s linear forwards`;
                 rocket.style.opacity = Math.random() * 0.4;
 
                 container.appendChild(rocket);
-
-                setTimeout(() => {
-                    rocket.remove();
-                }, duration * 1000);
+                setTimeout(() => rocket.remove(), duration * 1000);
             }, 2000);
         }
         createRockets();
 
-        // --- INTERSECTION OBSERVER ---
+        // REVEAL ON SCROLL
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // FORM SUBMISSION
+        var form = document.getElementById("my-form");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            var status = document.getElementById("my-form-status");
+            var data = new FormData(e.target);
+            fetch(e.target.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+            .then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Děkujeme! Vaše mise byla úspěšně odeslána.";
+                    status.className = "text-center font-bold mt-4 text-green-500";
+                    form.reset();
+                } else {
+                    status.innerHTML = "Ups! Něco se nepovedlo.";
+                    status.className = "text-center font-bold mt-4 text-red-500";
                 }
             });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-        // --- FORM HANDLING ---
-        var form = document.getElementById("my-form");
-        async function handleSubmit(event) {
-          event.preventDefault();
-          var status = document.getElementById("my-form-status");
-          var data = new FormData(event.target);
-          fetch(event.target.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          }).then(response => {
-            if (response.ok) {
-              status.innerHTML = "Děkujeme! Vaše mise byla úspěšně odeslána.";
-              status.className = "text-center font-bold mt-4 text-green-500";
-              form.reset()
-            } else {
-              status.innerHTML = "Ups! Něco se nepovedlo při startu.";
-              status.className = "text-center font-bold mt-4 text-red-500";
-            }
-          }).catch(error => {
-            status.innerHTML = "Ups! Máme problém se spojením.";
-            status.className = "text-center font-bold mt-4 text-red-500";
-          });
-        }
-        form.addEventListener("submit", handleSubmit)
+        });
     </script>
 </body>
 </html>
