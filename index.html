@@ -821,7 +821,14 @@
             mobileMenu.classList.toggle('active');
             const isOpen = mobileMenu.classList.contains('active');
             menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            body.style.overflow = isOpen ? 'hidden' : 'auto';
+            
+            if (isOpen) {
+                body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+            }
         });
 
         // Ensure menu closes and route handles even if clicking the same link twice
@@ -836,7 +843,8 @@
         function closeMobileMenu() {
             mobileMenu.classList.remove('active');
             menuIcon.className = 'fas fa-bars';
-            body.style.overflow = 'auto';
+            body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
 
 
