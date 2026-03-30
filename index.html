@@ -33,16 +33,7 @@
 
         body {
             background-color: #080c14;
-            background-image:
-                radial-gradient(circle at top, rgba(109, 40, 217, 0.4) 0%, rgba(30, 58, 138, 0.4) 50%, transparent 100%),
-                radial-gradient(white, rgba(255, 255, 255, .3) 2px, transparent 3px),
-                radial-gradient(white, rgba(255, 255, 255, .25) 1px, transparent 2px),
-                radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
-                radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255, 255, 255, .1) 1px, transparent 2px),
-                radial-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .15) 1px, transparent 2px),
-                radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 1px, transparent 2px),
-                radial-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .05) 1px, transparent 1px);
+            background-image: radial-gradient(circle at top, rgba(109, 40, 217, 0.4) 0%, rgba(30, 58, 138, 0.4) 50%, transparent 100%), radial-gradient(white, rgba(255, 255, 255, .3) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .25) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .05) 1px, transparent 1px);
             background-size: 100% 100%, 550px 550px, 350px 350px, 650px 650px, 450px 450px, 250px 250px, 350px 350px, 250px 250px, 150px 150px;
             background-position: 0 0, 0 0, 100px 150px, 200px 50px, 50px 100px, 150px 200px, 120px 180px, 220px 80px, 170px 230px;
             color: #f8fafc;
@@ -129,7 +120,6 @@
             }
         }
 
-        /* Fullscreen Mobile Menu Animation */
         #mobile-menu {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             visibility: hidden;
@@ -141,7 +131,6 @@
             opacity: 1;
         }
 
-        /* Page transitions */
         .page-section {
             display: none;
             animation: fadeInPage 0.5s ease-out;
@@ -163,12 +152,10 @@
             }
         }
 
-        /* Active nav link */
         .nav-link.active-link {
             color: #60a5fa !important;
         }
 
-        /* Pricing card styles */
         .pricing-card {
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -227,6 +214,93 @@
             opacity: 0.5;
             font-size: 0.9rem;
         }
+
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .dropdown-trigger:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dropdown-container.active .dropdown-trigger {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 0.75rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.25rem;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.98);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-container.active .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .dropdown-option {
+            padding: 1rem 1.25rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-option:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-option:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            padding-left: 1.5rem;
+        }
+
+        .dropdown-option.selected {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            font-weight: bold;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            color: #3b82f6;
+        }
+
+        .dropdown-container.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 
@@ -234,7 +308,6 @@
 
     <div id="rocket-container" class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index: 0;"></div>
 
-    <!-- ===== NAVIGATION ===== -->
     <nav class="fixed w-full bg-slate-950/60 backdrop-blur-xl border-b border-white/10" style="z-index: 1000;">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex-1">
@@ -245,18 +318,18 @@
                 </a>
             </div>
 
-            <div class="hidden md:flex flex-1 justify-center space-x-10">
+            <div class="hidden md:flex flex-1 justify-center space-x-8">
                 <a href="#sluzby"
-                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest"
+                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest whitespace-nowrap"
                     data-page="sluzby">Služby</a>
                 <a href="#mise"
-                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest"
+                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest whitespace-nowrap"
                     data-page="mise">Naše Mise</a>
-                <a href="#cenik"
-                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest"
-                    data-page="cenik">Ceník</a>
+                <a href="#porovnani"
+                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest whitespace-nowrap"
+                    data-page="porovnani">Porovnání</a>
                 <a href="#informace"
-                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest"
+                    class="nav-link text-sm font-bold text-white/70 hover:text-blue-400 transition uppercase tracking-widest whitespace-nowrap"
                     data-page="informace">Informace</a>
             </div>
 
@@ -268,8 +341,8 @@
 
             <div class="hidden md:flex flex-1 justify-end">
                 <a href="#kontakt"
-                    class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-xs md:text-sm uppercase">
-                    Nezávazně Poptat
+                    class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-xs md:text-sm uppercase whitespace-nowrap">
+                    ZJISTIT KALKULACI
                 </a>
             </div>
         </div>
@@ -280,15 +353,18 @@
         <a href="#sluzby"
             class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Služby</a>
         <a href="#mise"
-            class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Naše
-            Mise</a>
-        <a href="#cenik"
-            class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Ceník</a>
+            class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">
+            Naše
+            Mise
+        </a>
+        <a href="#porovnani"
+            class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Porovnání</a>
         <a href="#informace"
             class="mobile-link text-4xl font-black text-white hover:text-blue-500 transition uppercase italic tracking-tighter">Informace</a>
         <a href="#kontakt"
-            class="mobile-link bg-blue-600 text-white px-12 py-5 rounded-full font-black uppercase text-xl shadow-glow">Nezávazně
-            Poptat</a>
+            class="mobile-link bg-blue-600 text-white px-12 py-5 rounded-full font-black uppercase text-xl shadow-glow whitespace-nowrap">
+            ZJISTIT KALKULACI
+        </a>
     </div>
 
     <div id="page-home" class="page-section active-page">
@@ -296,13 +372,17 @@
         <header class="pt-48 pb-32 px-6 text-center">
             <div class="max-w-5xl mx-auto">
                 <span
-                    class="px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 inline-block border border-blue-500/20 tracking-widest uppercase shadow-glow">Mise:
-                    Digitální Dominance</span>
+                    class="px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 inline-block border border-blue-500/20 tracking-widest uppercase shadow-glow">
+                    Mise:
+                    Digitální Dominance
+                </span>
                 <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight tracking-tight">
                     Vystřelte svůj projekt <br>
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">mimo
-                        oběžnou dráhu</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
+                        mimo
+                        oběžnou dráhu
+                    </span>
                 </h1>
                 <p class="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
                     Neztrácejte čas s pomalými weby. Raketové Weby dodávají špičkový kód, grafiku a marketing, který vás
@@ -310,11 +390,14 @@
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-5">
                     <a href="#sluzby"
-                        class="px-10 py-4 bg-white text-slate-950 rounded-xl font-bold text-lg hover:bg-blue-50 transition-all shadow-xl">Prohlédnout
-                        služby</a>
+                        class="px-10 py-4 bg-white text-slate-950 rounded-xl font-bold text-lg hover:bg-blue-50 transition-all shadow-xl">
+                        Prohlédnout
+                        služby
+                    </a>
                     <a href="#kontakt"
-                        class="px-10 py-4 border border-white/20 rounded-xl font-bold text-lg hover:bg-white/5 transition">Nezávazná
-                        poptávka</a>
+                        class="px-10 py-4 border border-white/20 rounded-xl font-bold text-lg hover:bg-white/5 transition whitespace-nowrap">
+                        ZJISTIT KALKULACI
+                    </a>
                 </div>
             </div>
         </header>
@@ -322,8 +405,10 @@
         <section id="sluzby" class="pt-64 pb-32 px-6 reveal">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-20">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase italic tracking-tighter text-glow">Co
-                        nabízíme?</h2>
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase italic tracking-tighter text-glow">
+                        Co
+                        nabízíme?
+                    </h2>
                     <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full shadow-glow"></div>
                 </div>
 
@@ -335,9 +420,11 @@
                             <i class="fas fa-code"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Weby na míru</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Stavíme rychlé a bezpečné weby, které nepadají
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Stavíme rychlé a bezpečné weby, které nepadají
                             ani
-                            při extrémní zátěži.</p>
+                            při extrémní zátěži.
+                        </p>
                     </div>
 
                     <div
@@ -347,8 +434,10 @@
                             <i class="fas fa-wrench"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Správa sociálních sítí</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Sociální sítě s výkonem rakety. Obsah, který
-                            nenechá nikoho na zemi!</p>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Sociální sítě s výkonem rakety. Obsah, který
+                            nenechá nikoho na zemi!
+                        </p>
                     </div>
 
                     <div
@@ -389,9 +478,11 @@
                             <i class="fas fa-pen-nib"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Obsah & Copy</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Texty, které prodávají. Píšeme příběhy, které
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Texty, které prodávají. Píšeme příběhy, které
                             vaši
-                            zákazníci chtějí číst.</p>
+                            zákazníci chtějí číst.
+                        </p>
                     </div>
                     <div
                         class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-500">
@@ -400,8 +491,10 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Data & Analýza</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Měříme vše. Optimalizujeme váš web na základě
-                            reálných dat, ne dojmů.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Měříme vše. Optimalizujeme váš web na základě
+                            reálných dat, ne dojmů.
+                        </p>
                     </div>
                     <div
                         class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-green-500/40 transition-all duration-500">
@@ -410,9 +503,11 @@
                             <i class="fas fa-lock"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Zabezpečení</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Bezpečný let zaručen. Každý náš web má
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Bezpečný let zaručen. Každý náš web má
                             pancéřování
-                            v podobě HTTPS šifrování.</p>
+                            v podobě HTTPS šifrování.
+                        </p>
                     </div>
                     <div
                         class="p-10 glass-card rounded-[2rem] flex flex-col items-center text-center group hover:border-yellow-500/40 transition-all duration-500">
@@ -421,31 +516,49 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <h3 class="text-2xl font-bold mb-4">Odlet</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Váš web vyletí do vesmíru raketovou
-                            rychlostí.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Váš web vyletí do vesmíru raketovou
+                            rychlostí.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- KONTAKT on Home page -->
         <section id="kontakt" class="py-32 px-6">
             <div
                 class="max-w-3xl mx-auto glass-card p-8 md:p-16 rounded-[3rem] border-blue-500/20 relative overflow-hidden shadow-glow hover:border-blue-500/40 transition-all duration-500">
-                <h2 class="text-4xl font-black mb-4 uppercase text-glow">Připravit ke startu?</h2>
+                <h2 class="text-4xl font-black mb-4 uppercase text-glow">ZJISTIT KALKULACI</h2>
                 <p class="text-slate-400 mb-10 text-lg">Zanechte nám vzkaz a my s vámi naplánujeme cestu ke hvězdám.</p>
                 <form id="my-form" action="https://formspree.io/f/maqdgobp" method="POST" class="grid gap-5">
+                    <input type="hidden" name="_subject" value="🚀 Nová poptávka: {{ Jméno }}">
                     <div class="grid md:grid-cols-2 gap-5">
-                        <input type="text" name="name" placeholder="Jméno"
+                        <input type="text" name="Jméno" placeholder="Jméno" required
                             class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none text-white">
-                        <input type="email" name="email" required placeholder="Váš email"
+                        <input type="email" name="Email" required placeholder="Váš email"
                             class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none text-white">
                     </div>
-                    <textarea name="message" required placeholder="Popište nám svůj projekt..."
+                    <div class="grid gap-5">
+                        <div class="dropdown-container" id="budget-dropdown">
+                            <div class="dropdown-trigger">
+                                <span id="selected-budget">Předpokládaný rozpočet</span>
+                                <i class="fas fa-chevron-down dropdown-arrow"></i>
+                            </div>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-option" data-value="5-7k">5 000 - 7 000 Kč</div>
+                                <div class="dropdown-option" data-value="7-10k">7 000 - 10 000 Kč</div>
+                                <div class="dropdown-option" data-value="10-15k">10 000 - 15 000 Kč</div>
+                                <div class="dropdown-option" data-value="15k+">15 000 Kč +</div>
+                            </div>
+                            <input type="hidden" name="Rozpočet" id="budget-input" required>
+                        </div>
+                    </div>
+                    <textarea name="Zpráva" required placeholder="Popište nám svůj projekt..."
                         class="p-5 bg-white/5 rounded-2xl border border-white/10 focus:border-blue-500 outline-none h-40 text-white"></textarea>
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition shadow-xl text-xl uppercase italic">Odeslat
-                        poptávku!</button>
+                        class="bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl transition shadow-xl text-xl uppercase italic">
+                        ZJISTIT KALKULACI
+                    </button>
                     <p id="my-form-status" class="text-center font-bold mt-4"></p>
                 </form>
             </div>
@@ -496,14 +609,14 @@
     </div>
 
 
-    <div id="page-cenik" class="page-section">
+    <div id="page-porovnani" class="page-section">
 
         <header class="pt-48 pb-16 px-6 text-center">
             <div class="max-w-5xl mx-auto">
                 <span
-                    class="px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 inline-block border border-blue-500/20 tracking-widest uppercase shadow-glow">Ceník</span>
+                    class="px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 inline-block border border-blue-500/20 tracking-widest uppercase shadow-glow">Porovnání</span>
                 <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight text-glow">
-                    Vyberte si balíček
+                    Porovnání s konkurencí
                 </h1>
                 <p class="text-lg md:text-xl text-slate-400 mb-4 max-w-2xl mx-auto leading-relaxed">
                     Porovnejte naši nabídku s konkurencí a vyberte to nejlepší pro váš byznys.
@@ -559,11 +672,11 @@
                         class="pricing-card featured glass-card rounded-[2rem] p-8 md:p-10 flex flex-col border-blue-500/50 mt-0 md:-mt-4 shadow-2xl bg-slate-900/40">
                         <div class="pricing-badge">Nejlepší volba</div>
                         <div class="text-center mb-8 pt-4">
-                            <h3 class="text-2xl font-black uppercase mb-1 text-blue-400">Nejlevnější</h3>
+                            <h3 class="text-2xl font-black uppercase mb-1 text-blue-400">MY</h3>
                             <p class="text-slate-400 italic text-sm mb-6">Cenová níže</p>
-                            <div class="flex items-baseline justify-center gap-3 mb-2">
-                                <span class="text-5xl font-black text-white">5 999 Kč</span>
-                                <span class="old-price text-slate-500">8 000 Kč</span>
+                            <div class="flex items-baseline justify-center gap-3 mb-1">
+                                <canvas id="price-canvas" width="260" height="70"
+                                    class="blur-[7px] pointer-events-none max-w-full h-auto"></canvas>
                             </div>
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold mt-2 border border-blue-500/20">
@@ -593,8 +706,8 @@
                             </div>
                         </div>
                         <a href="#kontakt"
-                            class="block w-full text-center py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black transition uppercase text-sm shadow-lg shadow-blue-500/30">
-                            NEZÁVAZNĚ POPTAT
+                            class="block w-full text-center py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black transition uppercase text-sm shadow-lg shadow-blue-500/30 whitespace-nowrap">
+                            ZJISTIT KALKULACI
                         </a>
                     </div>
 
@@ -749,7 +862,7 @@
         const routes = {
             'home': { page: 'home', scroll: null },
             'mise': { page: 'mise', scroll: null },
-            'cenik': { page: 'cenik', scroll: null },
+            'porovnani': { page: 'porovnani', scroll: null },
             'informace': { page: 'informace', scroll: null },
             'kontakt': { page: 'home', scroll: 'kontakt' },
             'sluzby': { page: 'home', scroll: 'sluzby' }
@@ -759,12 +872,10 @@
             const hash = location.hash.replace('#', '') || 'home';
             const route = routes[hash] || routes['home'];
 
-            // Hide all pages
             document.querySelectorAll('.page-section').forEach(p => {
                 p.classList.remove('active-page');
             });
 
-            // Show target page
             const target = document.getElementById('page-' + route.page);
             if (target) {
                 target.classList.add('active-page');
@@ -773,7 +884,6 @@
                 target.style.animation = '';
             }
 
-            // Update active nav link
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active-link');
                 if (link.dataset.page === hash) {
@@ -781,7 +891,6 @@
                 }
             });
 
-            // Scroll to target or top
             if (route.scroll) {
                 setTimeout(() => {
                     const el = document.getElementById(route.scroll);
@@ -791,7 +900,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Re-observe reveal elements
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.unobserve(el);
                 el.classList.remove('active');
@@ -809,6 +917,60 @@
             closeMobileMenu();
         }
 
+        const dropdown = document.getElementById('budget-dropdown');
+        const trigger = dropdown.querySelector('.dropdown-trigger');
+        const selectedText = document.getElementById('selected-budget');
+        const hiddenInput = document.getElementById('budget-input');
+        const options = dropdown.querySelectorAll('.dropdown-option');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.dataset.value;
+                const text = option.textContent;
+
+                selectedText.textContent = text;
+                hiddenInput.value = value;
+
+                options.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+
+                dropdown.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', () => {
+            dropdown.classList.remove('active');
+        });
+
+
+        function renderBlurredPrice() {
+            const canvas = document.getElementById('price-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const secret = 'NSA5OTkgS2M=';
+            const price = atob(secret);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.font = "bold 44px Inter, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "rgba(255, 255, 255, 0.4)";
+
+            ctx.fillText(price, canvas.width / 2, canvas.height / 2);
+        }
+
+        renderBlurredPrice();
+
+
         window.addEventListener('hashchange', handleRoute);
 
 
@@ -821,7 +983,7 @@
             mobileMenu.classList.toggle('active');
             const isOpen = mobileMenu.classList.contains('active');
             menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
-            
+
             if (isOpen) {
                 body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
@@ -831,7 +993,6 @@
             }
         });
 
-        // Ensure menu closes and route handles even if clicking the same link twice
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.location.hash === link.getAttribute('href')) {
