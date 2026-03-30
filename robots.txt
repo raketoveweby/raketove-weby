@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://raketoveweby.cz/sitemap.xml
