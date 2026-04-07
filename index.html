@@ -4,6 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNSCRE95LH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Výchozí nastavení souhlasu (Consent Mode v2)
+        function getConsent() {
+            const cookie = getCookie('cookie_consent');
+            if (cookie) return cookie;
+            const local = localStorage.getItem('cookie_consent');
+            if (local) return local;
+            return null;
+        }
+
+        const consentValue = getConsent();
+        if (!consentValue) {
+            gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied'
+            });
+        } else {
+            try {
+                const consent = JSON.parse(decodeURIComponent(consentValue));
+                gtag('consent', 'default', {
+                    'analytics_storage': consent.analytics ? 'granted' : 'denied',
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied'
+                });
+            } catch (e) {
+                gtag('consent', 'default', {
+                    'analytics_storage': 'denied',
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied'
+                });
+            }
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-KNSCRE95LH');
+    </script>
     <title>Raketové Weby | Profesionální tvorba webu, SEO a marketing</title>
     <meta name="description"
         content="Vytvoříme pro vás moderní, rychlé a bezpečné webové stránky, které prodávají. Specializujeme se na SEO, PPC kampaně, e-shopy a grafický design.">
@@ -59,11 +110,13 @@
 
         body {
             background-color: #080c14;
-            background-image: radial-gradient(circle at top, rgba(109, 40, 217, 0.4) 0%, rgba(30, 58, 138, 0.4) 50%, transparent 100%), radial-gradient(white, rgba(255, 255, 255, .3) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .25) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, .05) 1px, transparent 1px);
+            background-image: radial-gradient(circle at top, rgba(109, 40, 217, 0.4) 0%, rgba(30, 58, 138, 0.4) 50%, transparent 100%), radial-gradient(white, rgba(255, 255, 255, .3) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .25) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .15) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .1) 1px, transparent 2px), radial-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, .05) 1px, transparent 1px);
             background-size: 100% 100%, 550px 550px, 350px 350px, 650px 650px, 450px 450px, 250px 250px, 350px 350px, 250px 250px, 150px 150px;
             background-position: 0 0, 0 0, 100px 150px, 200px 50px, 50px 100px, 150px 200px, 120px 180px, 220px 80px, 170px 230px;
             color: #f8fafc;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow-x: hidden;
         }
@@ -164,6 +217,7 @@
 
         .page-section.active-page {
             display: block;
+            flex: 1 0 auto;
         }
 
         @keyframes fadeInPage {
@@ -326,6 +380,61 @@
 
         .dropdown-container.active .dropdown-arrow {
             transform: rotate(180deg);
+        }
+
+        .dropdown-container.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Cookie Consent Banner */
+        #cookie-banner {
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #cookie-banner.active {
+            transform: translateY(0);
+        }
+
+        #cookie-settings-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        #cookie-settings-menu.active {
+            max-height: 300px;
+        }
+
+        .cookie-checkbox {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cookie-checkbox:checked {
+            background: #3b82f6;
+        }
+
+        .cookie-checkbox::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .cookie-checkbox:checked::before {
+            transform: translateX(20px);
         }
     </style>
 </head>
@@ -902,11 +1011,18 @@
                     </p>
                     <h3 class="text-2xl font-black text-white uppercase italic">1. Rychlost, kterou AI miluje</h3>
                     <p>
-                        Zapomeňte na pomalé načítání. Tradiční systémy brzdí složité databáze. Raketové Weby stavíme na dvou pilířích: ultra-rychlém statickém kódu a moderním, čistém PHP. Na rozdíl od těžkopádného WordPressu nezatěžujeme váš web zbytečným kódem. Google i AI vyhledávače milují naši odezvu pod 500ms, která zajišťuje okamžitý přístup k informacím bez čekání.
+                        Zapomeňte na pomalé načítání. Tradiční systémy brzdí složité databáze. Raketové Weby stavíme na
+                        dvou pilířích: ultra-rychlém statickém kódu a moderním, čistém PHP. Na rozdíl od těžkopádného
+                        WordPressu nezatěžujeme váš web zbytečným kódem. Google i AI vyhledávače milují naši odezvu pod
+                        500ms, která zajišťuje okamžitý přístup k informacím bez čekání.
                     </p>
                     <h3 class="text-2xl font-black text-white uppercase italic">2. Bezpečnost bez kompromisů</h3>
                     <p>
-                        Na rozdíl od WordPressu, který je kvůli své popularitě a zastaralým doplňkům terčem milionů útoků denně, stavíme Raketové Weby na čisté a moderní architektuře. I tam, kde využíváme PHP pro dynamické funkce, eliminujeme běžné serverové zranitelnosti díky optimalizovanému kódu a nasazení na globální síti CDN. Váš web tak není jen sada souborů, ale nedobytná digitální pevnost.
+                        Na rozdíl od WordPressu, který je kvůli své popularitě a zastaralým doplňkům terčem milionů
+                        útoků denně, stavíme Raketové Weby na čisté a moderní architektuře. I tam, kde využíváme PHP pro
+                        dynamické funkce, eliminujeme běžné serverové zranitelnosti díky optimalizovanému kódu a
+                        nasazení na globální síti CDN. Váš web tak není jen sada souborů, ale nedobytná digitální
+                        pevnost.
                     </p>
                     <h3 class="text-2xl font-black text-white uppercase italic">3. SEO a AIO (AI Optimization)</h3>
                     <p>
@@ -952,7 +1068,8 @@
                         webu?</h3>
                     <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
                         <div class="text-slate-400 leading-relaxed" itemprop="text">
-                            Provoz webu vás vyjde na minimum. Platíte pouze za svou vlastní doménu a hosting (dohromady cca 300–600 Kč ročně).
+                            Provoz webu vás vyjde na minimum. Platíte pouze za svou vlastní doménu a hosting (dohromady
+                            cca 300–600 Kč ročně).
                         </div>
                     </div>
                 </div>
@@ -1206,6 +1323,140 @@
                         status.className = "text-center font-bold mt-4 text-red-500";
                     }
                 });
+        });
+
+        // Cookie Consent Logic
+        function setCookie(name, value, days) {
+            const stringValue = encodeURIComponent(JSON.stringify(value));
+            // Save to cookie
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + "=" + stringValue + ";expires=" + date.toUTCString() + ";path=/;SameSite=Lax";
+            // Save to localStorage as backup (better for localhost)
+            localStorage.setItem(name, stringValue);
+        }
+
+        function showBanner() {
+            const banner = document.getElementById('cookie-banner');
+            const consent = getCookie('cookie_consent') || localStorage.getItem('cookie_consent');
+            if (banner && !consent) {
+                banner.style.display = 'block';
+                setTimeout(() => banner.classList.add('active'), 100);
+            }
+        }
+
+        function hideBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) {
+                banner.classList.remove('active');
+                setTimeout(() => banner.style.display = 'none', 600);
+            }
+        }
+
+        function acceptAll() {
+            const consent = { analytics: true, essential: true };
+            setCookie('cookie_consent', consent, 365);
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+            hideBanner();
+        }
+
+        function declineAll() {
+            const consent = { analytics: false, essential: true };
+            setCookie('cookie_consent', consent, 365);
+            gtag('consent', 'update', {
+                'analytics_storage': 'denied'
+            });
+            hideBanner();
+        }
+
+        function saveSettings() {
+            const analyticsConsent = document.getElementById('consent-analytics').checked;
+            const consent = { analytics: analyticsConsent, essential: true };
+            setCookie('cookie_consent', consent, 365);
+            gtag('consent', 'update', {
+                'analytics_storage': analyticsConsent ? 'granted' : 'denied'
+            });
+            hideBanner();
+        }
+
+        function toggleSettings() {
+            const settings = document.getElementById('cookie-settings-menu');
+            if (settings) {
+                settings.classList.toggle('active');
+            }
+        }
+
+        window.addEventListener('load', showBanner);
+    </script>
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner"
+        class="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md glass-card backdrop-blur-2xl p-6 rounded-3xl border border-white/10 shadow-2xl z-[5000]"
+        style="display: none;">
+        <div class="flex items-start gap-4 mb-4">
+            <div
+                class="w-10 h-10 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-cookie-bite text-xl"></i>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-1 uppercase tracking-wider text-sm">Vaše mise, vaše data</h4>
+                <p class="text-slate-400 text-xs leading-relaxed">
+                    Raketové weby využívají cookies pro hladký průběh vaší mise a analýzu letu. Pomůžete nám vylepšit
+                    pohon našich raket?
+                </p>
+            </div>
+        </div>
+
+        <div id="cookie-settings-menu" class="space-y-3 mb-4">
+            <div class="h-px bg-white/5 my-4"></div>
+            <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-shield-alt text-blue-400 text-xs"></i>
+                    <span class="text-white text-xs font-bold uppercase">Nezbytné</span>
+                </div>
+                <span
+                    class="text-[10px] font-black text-blue-400 bg-blue-400/10 px-2 py-1 rounded-lg border border-blue-400/20 uppercase tracking-tighter">Vždy
+                    aktivní</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-chart-bar text-purple-400 text-xs"></i>
+                    <span class="text-white text-xs font-bold uppercase">Analytické</span>
+                </div>
+                <input type="checkbox" id="consent-analytics" class="cookie-checkbox" checked>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            <div class="flex gap-3">
+                <button onclick="acceptAll()"
+                    class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition uppercase text-xs shadow-lg shadow-blue-500/30">
+                    Přijmout vše
+                </button>
+                <button onclick="toggleSettings()"
+                    class="px-4 border border-white/10 hover:bg-white/5 text-white font-black py-3 rounded-xl transition uppercase text-xs">
+                    Nastavení
+                </button>
+            </div>
+            <button onclick="declineAll()"
+                class="w-full text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold tracking-widest transition py-1">
+                Odmítnout vše a pokračovat
+            </button>
+            <button id="save-settings-btn" onclick="saveSettings()" style="display: none;"
+                class="save-settings-btn w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition uppercase text-xs">
+                Uložit nastavení
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Update: Show "Uložit" button only when settings are open
+        document.querySelector('button[onclick="toggleSettings()"]').addEventListener('click', function () {
+            const settingsMenu = document.getElementById('cookie-settings-menu');
+            const isExpanded = settingsMenu && settingsMenu.classList.contains('active');
+            document.querySelector('button[onclick="acceptAll()"]').style.display = isExpanded ? 'none' : 'block';
+            document.getElementById('save-settings-btn').style.display = isExpanded ? 'block' : 'none';
         });
     </script>
 </body>
